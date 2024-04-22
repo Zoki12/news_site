@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}
+    <p>Привет</p>
+{% endblock title %}
+{% block content %}
+{% for item in news %}
+   <h1>{{ item.title }}</h1>
+   <hr>
+   <p>{{ item.text }}</p>
+{% endfor %}
+{% endblock content %}
