@@ -1,25 +1,34 @@
-# Новостной портал
-Новостной сайт на котором любой желающий может поделиться выдуманной новостью!
+# Новостной Порт
+Наши новости - ваш взгляд!
+
 ## Описание
-Новостной сайт созданный с использованием микрофреймворка Flask в рамках обучения по программе Python Pro.
+Этот новостной сайт разработан с использованием фреймворка Flask в рамках обучения по программе Python Pro.
+
 ## Технологии
-* Python
-Flask
-* WTForms
-* SQLAlchemy
+- Python
+- Flask
+- WTForms
+- SQLAlchemy
+
 ## Как запустить
-1. Склонируйте репозиторий
-2. Создайте и активируйте виртуальное окружение
-```commandline
-python -m venv venv
-source venv/Scripts/activate
-3. Установите зависимости
-commandline
-pip install -r requirements.txt
-4. Создайте файлепѵ и укажите настройки подключения к БД и другие параметры.
-commandline
-DATABASE URI=sqlite:///db.sqlite3
-SECRET_KEY=YOUR_SECRET_KEY
-5. Запустите flask приложение
-commandline
-Flask run
+1. Склонируйте репозиторий.
+2. Создайте и активируйте виртуальное окружение:
+    ```commandline
+    python -m venv venv
+    source venv/Scripts/activate
+    ```
+3. Установите необходимые зависимости:
+    ```commandline
+    pip install -r requirements.txt
+    ```
+4. Создайте файл конфигурации и установите параметры подключения к базе данных и другие настройки:
+    ```commandline
+    DATABASE_URI=sqlite:///db.sqlite3
+    SECRET_KEY=YOUR_SECRET_KEY
+    ```
+5. Запустите Flask приложение:
+    ```commandline
+    flask run
+    ```
+
+made by Евгений.
