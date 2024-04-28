@@ -1,7 +1,8 @@
 from flask import render_template, redirect, url_for
 from . import app, db
-from . forms import NewsForm
+from . forms import NewsForm, Registration_Form, LoginForm
 from . models import Category, News
+
 
 @app.route('/')
 def index():
@@ -26,6 +27,7 @@ def news_in_category(id):
     return render_template('category.html', news=news, category_name=category_name, categories=categories)
 
 @app.route('/add_news', methods=['GET', 'POST'])
+@login_required
 def add_news():
     form=NewsForm()
 
@@ -40,3 +42,42 @@ def add_news():
         return redirect(url_for('news_detail', id=news.id))
     return render_template('add_news.html',
                            form=form, categories=categories)
+
+
+@app.route('/registration/', methods=['GET', 'POST'])
+def registration():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = RegistrationForm()
+    categories = Category.query.all()
+    if form.validate_on_submit():
+        user = User()
+        user.username = form.username.data
+        user.name = form.name.data
+        user.email = form.email.data
+        user.set_password(form.password.data)
+        db.session.add(user)
+        db.session.commit()
+        flash('Регистрация прошла успешно!', 'alert-success')
+        return redirect(url_for('login'))
+    return render_template('registration.html', form=form, categories=categories)
+
+
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    categories = Category.query.all()
+    if form.validate_on_submit():
+        user = User.query.filter(User.username == form.username.data).first()
+        if user and user.check_password(form.password.data):
+            login_user(user, remember=form.remember.data)
+            flash('Вход выполнен!', 'alert-success')
+            return redirect(url_for('index'))
+        else:
+            flash('Вход не выполнен!', 'alert-danger')
+    return render_template('login.html', form=form, categories=categories)
+
+@app.route('/logout/')
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
